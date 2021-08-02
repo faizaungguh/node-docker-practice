@@ -6,9 +6,17 @@ WORKDIR /app
 COPY package.json .
 # build image
 RUN npm install
+# change dev-prod
+ARG NODE_ENV
+RUN if [ "$NODE_ENV" = "development" ]; \
+            then npm install; \
+            else npm install --only=production; \
+            fi
 # copy file to path
 COPY . ./
+# envirornment variable
+ENV PORT 3000
 # port docker
-EXPOSE 3000
+EXPOSE $PORT
 # command runtime
 CMD [ "node", "index.js" ]
