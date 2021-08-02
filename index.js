@@ -8,6 +8,7 @@ const {
 } = require('./config/config')
 
 const postRouter = require('./src/routes/postRoutes')
+const userRouter = require('./src/routes/userRoutes')
 
 // "mongodb://faiza4dev:rahasiaku@172.26.0.2:27017/?authSource=admin"
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
@@ -37,6 +38,7 @@ app.get("/", (req,res)=>{
 })
 // route api
 app.use('/api/v1/posts', postRouter)
+app.use('/api/v1/users', userRouter)
 
 const port = process.env.PORT || 3000;
 
