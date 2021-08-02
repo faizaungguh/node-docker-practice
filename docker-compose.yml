@@ -7,3 +7,16 @@ services:
       - '3000:3000'
     environment: 
         - PORT=3000
+    depends_on: 
+      - mongo
+
+  mongo:
+    image: mongo:5.0.1
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=faiza4dev
+      - MONGO_INITDB_ROOT_PASSWORD=rahasiaku
+    volumes: 
+      - mongo-db:/data/db
+
+volumes: 
+  mongo-db:

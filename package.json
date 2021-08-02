@@ -1,9 +1,10 @@
 {
-  "name": "minify-docker",
+  "name": "nodeapp-docker",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.13.5"
   },
   "scripts": {
     "start": "node index.js",

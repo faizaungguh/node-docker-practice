@@ -11,4 +11,10 @@ services:
         - /app/node_modules
     environment: 
         - NODE_ENV=development
+        - MONGO_USER=faiza4dev
+        - MONGO_PASSWORD=rahasiaku
     command:  npm run dev
+  mongo:
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=faiza4dev
+      - MONGO_INITDB_ROOT_PASSWORD=rahasiaku
