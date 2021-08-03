@@ -2,6 +2,9 @@
 build-dev:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 
+build-dev-v:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build -V
+
 run-dev:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 

@@ -2,25 +2,31 @@ const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 
 exports.signUp = async (req, res) => {
-    const {username, password} = req.body
+    const { username, password } = req.body;
+
     try {
-        const hashPassword = await bcrypt.hash(password, 12)
+        const hashPassword = await bcrypt.hash(password, 12);
+
         const newUser = await User.create({
             username,
-            password: hashPassword
-        })
+            password: hashPassword,
+        });
+
+        req.session.user = newUser;
+
         res.status(201).json({
-            status: 'success',
+            status: "Success",
             data: {
-                user: newUser
-            }
-        })
-    } catch (e) {
+                user: newUser,
+            },
+        });
+    } catch (err) {
         res.status(400).json({
-            status: 'failed'
-        })    
+            status: "Error",
+            message: err.message,
+        });
     }
-}
+};
 
 exports.login = async(req,res) => {
     const {username, password} = req.body
@@ -36,6 +42,7 @@ exports.login = async(req,res) => {
         }
         const isCorrect = await bcrypt.compare(password, user.password)
         if (isCorrect) {
+            req.session.user = user
             res.status(200).json({
                 status: 'youre logged in'
             })
