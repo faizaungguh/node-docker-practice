@@ -2,6 +2,7 @@ const express   = require('express')
 const mongoose  = require('mongoose')
 const session   = require('express-session')
 const redis     = require('redis')
+const cors      = require('cors')
 let RedisStore  = require('connect-redis')(session)
 
 const { 
@@ -12,7 +13,7 @@ const {
   REDIS_URL,
   REDIS_PORT,
   SESSION_SECRET
-} = require('./config/config')
+} = require('./src/config/config')
 
 let redisClient = redis.createClient({
   host: REDIS_URL,
@@ -43,6 +44,8 @@ const connectWithRetry = () => {
 
 connectWithRetry()
 
+app.enable("trust proxy")
+app.use(cors({}))
 app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
@@ -57,8 +60,9 @@ app.use(session({
 
 app.use(express.json())
 
-app.get("/", (req,res)=>{
+app.get("/api/v1", (req,res)=>{
   res.send("<h2>Sugeng Siyang</h2>")
+  console.log('yang ini jalan')
 })
 // route api
 app.use('/api/v1/posts', postRouter)
